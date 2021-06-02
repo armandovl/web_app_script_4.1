@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+      <h3>lista encabezado</h3>
+
+      
+    <form id="empleados">
+      <div class="form-group">
+        <label>seleccionba el genero</lable>
+          <select id="departamento" name="departaento" onchange="activaSelect2()">
+            <? departamentos.forEach(departamento=>{?>
+              <option value="<?!=departamento?>"><?=departamento ?></option>
+            <? })?>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label>seleccionba el empleado</lable>
+          <select id="empleado" name="empleado" disabled>
+            <option>empleado</option>
+          </select>
+      </div>
+
+
+
+    </form>
+
+  <script>
+    function activaSelect2(){
+      google.script.run
+      .withSuccessHandler(actualizarInformacion)
+      .withFailureHandler(muestraError)
+      .buscarEmpleados(document.getElementById("departamento").value);
+    }
+
+    function actualizarInformacion(listaEmpleados){
+      var select =document.getElementById("empleado");
+      select.disabled=false;
+      select.options.length=0;
+
+      listaEmpleados.forEach( element=>{
+        var option=document.createElement('option');
+        option.value=element;
+        option.innerHTML=element;
+        select.appendChild(option);
+      })
+    }
+
+
+    
+    
+    function muestraError(error){
+      alert(error);
+    }
+
+
+  </script>
+  </body>
+</html>
